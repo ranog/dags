@@ -21,3 +21,7 @@ down:
 
 logs:
 	@docker compose logs -f
+
+format:
+	@poetry run ruff format .
+	@poetry run ruff check . --fix --exit-non-zero-on-fix

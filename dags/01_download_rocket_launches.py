@@ -1,4 +1,5 @@
 import json
+import logging
 import pathlib
 
 import pendulum
@@ -6,6 +7,8 @@ import requests
 from airflow import DAG
 from airflow.providers.standard.operators.bash import BashOperator
 from airflow.providers.standard.operators.python import PythonOperator
+
+logger = logging.getLogger(__name__)
 
 
 def _get_pictures():
@@ -20,14 +23,18 @@ def _get_pictures():
                 target_file = f"/tmp/images/{image_filename}"
                 with open(target_file, "wb") as f:
                     f.write(response.content)
-                print(f"Downloaded {image_url} to {target_file}")
+                logger.info(f"Downloaded {image_url} to {target_file}")
             except requests.exceptions.MissingSchema as e:
-                print(f"Failed to download {image_url}: {e}")
+                logger.error(f"Failed to download {image_url}: {e}")
             except requests.exceptions.ConnectionError as e:
-                print(f"Failed to download {image_url}: {e}")
+                logger.error(f"Failed to download {image_url}: {e}")
 
 
-with DAG(dag_id="01_download_rocket_launches", start_date=pendulum.today("UTC").add(days=-14), schedule=None):
+with DAG(
+    dag_id="01_download_rocket_launches",
+    start_date=pendulum.today("UTC").add(days=-14),
+    schedule=None,
+):
     download_launches = BashOperator(
         task_id="download_launches",
         bash_command="curl -o /tmp/launches.json -L 'https://ll.thespacedevs.com/2.0.0/launch/upcoming'",
