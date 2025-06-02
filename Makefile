@@ -12,3 +12,12 @@ run: init
 
 poetry-export:
 	@poetry export --with dev -vv --no-ansi --no-interaction --without-hashes --format requirements.txt --output requirements.txt
+
+up:
+	@docker compose up -d --build
+
+down:
+	@docker compose down
+
+logs:
+	@docker compose logs -f

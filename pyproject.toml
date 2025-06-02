@@ -2,7 +2,7 @@
 name = "dags"
 version = "0.1.0"
 description = ""
-authors = ["João Paulo Nogueira <jprnogueira@yahoo.com.br>"]
+authors = ["ranog <jprnogueira@yahoo.com.br>"]
 readme = "README.md"
 packages = [{ include = "src", from = "." }]
 
