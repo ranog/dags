@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.11.12"
+    rev: "v0.11.13"
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
@@ -8,4 +8,5 @@ repos:
     rev: "v4.8.2"
     hooks:
       - id: commitizen
-        stages: [commit-msg]
+      - id: commitizen-branch
+        stages: [commit-msg, pre-push]
