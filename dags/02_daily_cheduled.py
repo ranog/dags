@@ -1,4 +1,3 @@
-import datetime
 import pathlib
 
 import pandas as pd
@@ -16,8 +15,8 @@ def _calculate_stats(input_path, output_path):
 
 
 with DAG(
-    dag_id="02_unscheduled",
-    schedule=datetime.timedelta(days=3),
+    dag_id="02_daily_scheduled",
+    schedule="@daily",
     start_date=pendulum.datetime(2025, 6, 4),
     end_date=pendulum.datetime(2025, 12, 4),
 ):
